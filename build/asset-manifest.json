@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/vijay1996.github.io/appliancescanner/static/css/main.50a1f268.css",
-    "main.js": "/vijay1996.github.io/appliancescanner/static/js/main.2ea9080c.js",
-    "static/media/master_data.csv": "/vijay1996.github.io/appliancescanner/static/media/master_data.529d7b13bc76ae608133.csv",
-    "index.html": "/vijay1996.github.io/appliancescanner/index.html",
-    "main.50a1f268.css.map": "/vijay1996.github.io/appliancescanner/static/css/main.50a1f268.css.map",
-    "main.2ea9080c.js.map": "/vijay1996.github.io/appliancescanner/static/js/main.2ea9080c.js.map"
+    "main.css": "/appliancescanner/static/css/main.50a1f268.css",
+    "main.js": "/appliancescanner/static/js/main.e91e67bd.js",
+    "static/media/master_data.csv": "/appliancescanner/static/media/master_data.529d7b13bc76ae608133.csv",
+    "index.html": "/appliancescanner/index.html",
+    "main.50a1f268.css.map": "/appliancescanner/static/css/main.50a1f268.css.map",
+    "main.e91e67bd.js.map": "/appliancescanner/static/js/main.e91e67bd.js.map"
   },
   "entrypoints": [
     "static/css/main.50a1f268.css",
-    "static/js/main.2ea9080c.js"
+    "static/js/main.e91e67bd.js"
   ]
 }

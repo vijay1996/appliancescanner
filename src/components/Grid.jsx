@@ -13,7 +13,7 @@ const Grid = ({data}) => {
     return (
         <div className="col-md-10">
             <span style={{color: data.length > 0 ? "green" : "red", fontWeight: "bold"}}>showing {data.length} rows. {data.length === 0 ? 'Please change the filter criteria.' : ''}</span>
-            <div>Pages: {Array(Math.ceil(data.length / rowsPerPage)).fill().map((filler, page) => 
+            <div style={{width: "100%"}}>Pages: {Array(Math.ceil(data.length / rowsPerPage)).fill().map((filler, page) => 
                 <span>
                     <button 
                         style={{
