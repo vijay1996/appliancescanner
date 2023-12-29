@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/appliancescanner/static/css/main.50a1f268.css",
-    "main.js": "/appliancescanner/static/js/main.8c26f044.js",
-    "static/media/master_data.csv": "/appliancescanner/static/media/master_data.529d7b13bc76ae608133.csv",
-    "index.html": "/appliancescanner/index.html",
-    "main.50a1f268.css.map": "/appliancescanner/static/css/main.50a1f268.css.map",
-    "main.8c26f044.js.map": "/appliancescanner/static/js/main.8c26f044.js.map"
+    "main.css": "/static/css/main.50a1f268.css",
+    "main.js": "/static/js/main.5c8d7380.js",
+    "static/media/master_data.csv": "/static/media/master_data.529d7b13bc76ae608133.csv",
+    "index.html": "/index.html",
+    "main.50a1f268.css.map": "/static/css/main.50a1f268.css.map",
+    "main.5c8d7380.js.map": "/static/js/main.5c8d7380.js.map"
   },
   "entrypoints": [
     "static/css/main.50a1f268.css",
-    "static/js/main.8c26f044.js"
+    "static/js/main.5c8d7380.js"
   ]
 }
