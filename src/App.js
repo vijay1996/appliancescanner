@@ -1,23 +1,36 @@
-import logo from './logo.svg';
+import { useState, useEffect, useRef } from 'react';
 import './App.css';
+import FilterPanel from './components/FilterPanel';
+import Grid from './components/Grid';
+import Papa from 'papaparse';
+import master_data from './resources/master_data.csv'
+import { filterAndSortData, prepareData } from './util/helpers';
 
 function App() {
+
+  const [filterCriteria, setFilterCriteria] = useState({
+    category:'television',
+    sort: 'price'
+  });
+  const [data, setData] = useState([])
+
+  useEffect(() => {
+    Papa.parse(master_data, {
+        download: true,
+        header: true,
+        dynamicTyping: true,
+        complete: (results) => {
+          setData(prepareData(results.data));
+        }
+    })
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div id="application" className="row">
+      <h3>ApplianceScanner</h3>
+      <hr />
+      <FilterPanel filterCriteria={filterCriteria} setFilterCriteria={setFilterCriteria} />
+      <Grid data={filterAndSortData(data, filterCriteria)} />
     </div>
   );
 }
