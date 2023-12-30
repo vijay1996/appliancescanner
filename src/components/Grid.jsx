@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { convertJsonArrayToTable } from "../util/helpers";
+import { COLUMNS } from "../util/constants";
 
 const Grid = ({data}) => {
-
+    console.log(data)
     const rowsPerPage = 14;
     const [currentPage, setCurrentPage] = useState(1);
 
@@ -29,7 +30,7 @@ const Grid = ({data}) => {
                     </button> &nbsp; 
                 </span>)}
             </div>
-            {convertJsonArrayToTable(data.slice((currentPage - 1) * rowsPerPage, (currentPage * rowsPerPage)))}
+            {convertJsonArrayToTable(data.slice((currentPage - 1) * rowsPerPage, (currentPage * rowsPerPage)), data[0]?.category)}
         </div>
     )
 }

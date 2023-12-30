@@ -1,41 +1,43 @@
+import { COLUMNS } from "./constants";
+
 export function prepareData(data) {
     const validData = data.map(row => {
         const validProduct = (
-            row['asin']?.length && 
-            row['price']?.length && 
-            row['product name']?.length && 
-            (row['brand']?.length || row['manufacturer']?.length)
+            row[COLUMNS.ASIN]?.length && 
+            row[COLUMNS.PRICE]?.length && 
+            row[COLUMNS.PRODUCT_NAME]?.length && 
+            (row[COLUMNS.BRAND]?.length || row[COLUMNS.MANUFACTURER]?.length)
         ) ;
         
         if(validProduct) {
-            if(row['brand']?.length) {
-                row['brand'] = String(row['manufacturer']).split(',')[0]
+            if(row[COLUMNS.BRAND]?.length) {
+                row[COLUMNS.BRAND] = String(row[COLUMNS.MANUFACTURER]).split(',')[0]
             };
-            const price = Number(row['price'].replaceAll(",", "").replaceAll(".", "")); 
-            const capacity = Number (row['capacity']?.split(" ")[0]);
+            const price = Number(row[COLUMNS.PRICE].replaceAll(",", "").replaceAll(".", "")); 
+            const capacity = Number (row[COLUMNS.CAPACITY]?.split(" ")[0]);
             const additionalInfo = {};
             Object.keys(row).forEach(key => {
                 if (row[`${key}`]) {
                     additionalInfo[`${key}`] = row[`${key}`];
                 }
             })
-            const rating = Number(row['customer reviews']?.split(" ")[0]);
-            let customerReviews = row['customer reviews']?.replaceAll("  ", " ").replaceAll("  ", " ").replaceAll("  ", " ").split("ratings")[0].split(" ")
+            const rating = Number(row[COLUMNS.CUSTOMER_REVIEWS]?.split(" ")[0]);
+            let customerReviews = row[COLUMNS.CUSTOMER_REVIEWS]?.replaceAll("  ", " ").replaceAll("  ", " ").replaceAll("  ", " ").split("ratings")[0].split(" ")
             customerReviews && (customerReviews = Number(customerReviews[customerReviews?.length - 2].replaceAll(",", "").replaceAll(".", "")))
             return {
-                name: row['product name'],
+                name: row[COLUMNS.PRODUCT_NAME],
                 price: price,
                 "cost per capacity": parseFloat(price / capacity).toFixed(2),
-                cpcUnit: row['capacity']?.split(" ")[1],
-                capacity: row['capacity'],
+                cpcUnit: row[COLUMNS.CAPACITY]?.split(" ")[1],
+                capacity: row[COLUMNS.CAPACITY],
                 reviews: customerReviews,
                 rating,
-                brand: row['brand'],
-                model: row['model'],
-                category: row['category'],
-                image: row['image url'],
+                brand: row[COLUMNS.BRAND],
+                model: row[COLUMNS.MODEL],
+                category: row[COLUMNS.CATEGORY],
+                image: row[COLUMNS.IMAGE_URL],
                 additionalInfo: JSON.stringify(additionalInfo),
-                asin: row['asin'],
+                asin: row[COLUMNS.ASIN],
             };
         }
         return null;
@@ -48,14 +50,14 @@ export function filterAndSortData(data, filterCriteria) {
     let filteredData = [...data]
     Object.keys(filterCriteria).forEach(key => {
         switch(key) {
-            case 'category':
+            case COLUMNS.CATEGORY:
                 filteredData = filteredData.filter(row => String(row[key]).toLowerCase() === String(filterCriteria[key]).toLowerCase())
                 break;
             case 'minPrice':
-                filteredData = filterCriteria.minPrice ? filteredData.filter(row => row['price'] >= filterCriteria.minPrice) : filteredData;
+                filteredData = filterCriteria.minPrice ? filteredData.filter(row => row[COLUMNS.PRICE] >= filterCriteria.minPrice) : filteredData;
                 break;
             case 'maxPrice':
-                filteredData = filterCriteria.maxPrice ? filteredData.filter(row => row['price'] <= filterCriteria.maxPrice) : filteredData
+                filteredData = filterCriteria.maxPrice ? filteredData.filter(row => row[COLUMNS.PRICE] <= filterCriteria.maxPrice) : filteredData
                 break;
             case 'sort':
                 filteredData = filteredData.sort((row1, row2) =>{ 
@@ -84,8 +86,9 @@ export function filterAndSortData(data, filterCriteria) {
     return filteredData
 }
 
-export function convertJsonArrayToTable (jsonArray) {
+export function convertJsonArrayToTable (jsonArray, category) {
     const hiddenColumns = ['asin', 'cpcUnit', 'additionalInfo', "image"]
+    category === 'television' && (hiddenColumns.push('capacity', 'cost per capacity'))
     if (jsonArray.length > 0) {
         const columns = Object.keys(jsonArray[0]).filter(key => hiddenColumns.indexOf(key) === -1 && key.length > 0)
         return (

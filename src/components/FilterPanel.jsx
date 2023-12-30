@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { createFields } from "../util/helpers";
+import { COLUMNS } from "../util/constants";
 
 const FilterPanel = ({filterCriteria,setFilterCriteria}) => {
     const [filterState, setFilterState] = useState({
@@ -42,7 +43,7 @@ const FilterPanel = ({filterCriteria,setFilterCriteria}) => {
                     "select", 
                     (value) => setFilterState(prev => ({...prev, sort: value})),
                     filterState.sort, 
-                    ["name", "price", "cost per capacity", "capacity", "reviews", "rating", "brand", "model"]
+                    [COLUMNS.NAME, COLUMNS.PRICE, "cost per capacity", COLUMNS.CAPACITY, "reviews", "rating", COLUMNS.BRAND, COLUMNS.MODEL]
                 )}
                 {createFields(
                     "descending",
